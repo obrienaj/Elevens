@@ -1,4 +1,4 @@
-import java.util.Random;
+import java.util.*;
 
 /**
  * This class provides a convenient way to test shuffling methods.
@@ -42,6 +42,7 @@ public class Shuffler {
 			System.out.println();
 		}
 		System.out.println();
+	
 	}
 
 
