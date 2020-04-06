@@ -1,5 +1,4 @@
-import java.util.List;
-import java.util.ArrayList;
+import java.util.*;
 
 /**
  * The ElevensBoard class represents the board in a game of Elevens.
@@ -53,7 +52,23 @@ public class ElevensBoard extends Board {
 	 */
 	@Override
 	public boolean isLegal(List<Integer> selectedCards) {
-		/* *** TO BE IMPLEMENTED IN ACTIVITY 9 *** */
+		if (selectedCards.size() == 3){
+			if (containsJQK(selectedCards)){
+				return true;
+			}
+			else{
+				return false;
+			}
+		}
+		if (selectedCards.size() == 2){
+			if (containsPairSum11(selectedCards)){
+				return true;
+			}
+			else{
+				return false;
+			}
+		}
+		return false;
 	}
 
 	/**
@@ -66,7 +81,7 @@ public class ElevensBoard extends Board {
 	 */
 	@Override
 	public boolean anotherPlayIsPossible() {
-		/* *** TO BE IMPLEMENTED IN ACTIVITY 9 *** */
+		return (containsPairSum11(cardIndexes()) || containsJQK(cardIndexes()));
 	}
 
 	/**
@@ -78,7 +93,15 @@ public class ElevensBoard extends Board {
 	 *              contain an 11-pair; false otherwise.
 	 */
 	private boolean containsPairSum11(List<Integer> selectedCards) {
-		/* *** TO BE IMPLEMENTED IN ACTIVITY 9 *** */
+		
+		for (int i = 0; i < selectedCards.size(); i++){
+			for (int k = i + 1; k < selectedCards.size(); k++){
+				if (11 == cardAt(selectedCards.get(i)).pointValue() + cardAt(selectedCards.get(k)).pointValue()){
+					return true;
+				}
+			}
+		}
+		return false;
 	}
 
 	/**
@@ -90,6 +113,19 @@ public class ElevensBoard extends Board {
 	 *              include a jack, a queen, and a king; false otherwise.
 	 */
 	private boolean containsJQK(List<Integer> selectedCards) {
-		/* *** TO BE IMPLEMENTED IN ACTIVITY 9 *** */
+
+		boolean isJack = false;
+		boolean isQueen = false;
+		boolean isKing = false;
+		String rank;
+
+		for (int i = 0; i < selectedCards.size(); i++){
+			rank = cardAt(selectedCards.get(i)).rank();
+			if (rank.equals("jack")) {isJack = true;}
+			if (rank.equals("queen")) {isQueen = true;}
+			if (rank.equals("king")) {isKing = true;}
+		}
+
+		return (isJack && isQueen && isKing);
 	}
 }
